@@ -1,0 +1,25 @@
+# Version control files
+^\.git/
+^\.gitignore$
+
+# Makemaker generated files and dirs.
+^MANIFEST\.
+^Makefile$
+^blib/
+^MakeMaker-\d
+
+# Temp, old and emacs backup files.
+~$
+\.old$
+\.bak$
+^#.*#$
+^\.#
+
+# Previous archives of this distribution
+\.tar\.gz$
+
+# JetBrains IDE
+^.idea/
+
+# tools directory
+^tools/
