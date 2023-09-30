@@ -2,6 +2,11 @@
 
 ngrams.pl - Tool to calculate ngram frequency from a list of email addresses and test for accuracy
 
+Before running this script, you need to create a file /tmp/dict.txt containing a list of valid email addresses.
+The input file can contain full email addresses or just the local part, one per line. The domain part is ignored.
+If you use full email addresses, remove duplicates first. If you use local parts, you should leave duplicates
+in the file since some addresses are more common than others (e.g. support@, noreply@, etc.)
+
 # SYNOPSIS
 
 Usage: ngrams.pl &lt;command> \[&lt;args>\]
@@ -11,8 +16,7 @@ Commands:
 - prepare\_dict
 
     Reads a list of valid email addresses from /tmp/dict.txt and splits it
-    into /tmp/dict\_learn.txt and /tmp/dict\_test.txt. The input file can contain full email addresses
-    or just the local part. The domain part is ignored.
+    into /tmp/dict\_learn.txt and /tmp/dict\_test.txt.
 
 - calc\_freq
 
