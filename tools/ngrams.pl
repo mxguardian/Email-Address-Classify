@@ -45,6 +45,11 @@ The threshold should be a number between 0 and 100.
 
 Calculates the best threshold by calling C<test> repeatedly until accuracy is maximized.
 
+=item dump <threshold>
+
+Outputs all ngrams with a frequency greater than or equal to the given threshold.
+You can use this to overwrite the default ngrams.txt file with a custom list of ngrams.
+
 =item is_random <string> [<threshold>]
 
 Returns 1 if the given string is random, 0 otherwise. If threshold is given,
@@ -82,6 +87,7 @@ my %dispatch = (
         print random_string($length),"\n";
     },
     'calc_threshold' => \&calc_threshold,
+    'dump' => \&dump,
 );
 
 if ( !exists $dispatch{$command} ) {
@@ -297,4 +303,24 @@ sub random_string {
         $str .= substr($alpha,rand(length($alpha)),1);
     }
     return $str;
+}
+
+sub dump {
+    my $threshold = shift;
+    pod2usage('Threshold must be between 0 and 100')
+        if !defined($threshold) ||
+            $threshold < 0 ||
+            $threshold > 100;
+
+    my $freq_file = FREQ_FILE;
+    open(my $ff, '<', $freq_file) or die "Could not open file '$freq_file' $!";
+    while (my $line = <$ff>) {
+        chomp $line;
+        my ($ngram, $freq) = split(/\s+/, $line);
+        if ($freq >= $threshold) {
+            print "$ngram\n";
+        }
+    }
+    close $ff;
+
 }

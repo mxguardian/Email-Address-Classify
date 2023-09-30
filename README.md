@@ -14,11 +14,22 @@ Email::Address::Classify - Classify email addresses
 # DESCRIPTION
 
 This module provides a simple way to classify email addresses. At the moment, it only
-provides two classifications:
+provides two classifications is\_valid() and is\_random(). More classifications may be
+added in the future.
+
+# METHODS
+
+- new($address)
+
+    Creates a new Email::Address::Classify object. The only argument is the email address.
 
 - is\_valid()
 
-    Returns true if the address conforms to the RFC 5322 specification. Returns false otherwise.
+    Performs a simple check to determine if the address is formatted properly.
+    Note that this method does not check if the domain exists or if the mailbox is valid.
+    Nor is it a complete RFC 2822 validator. For that, you should use a module such as
+    [Email::Address](https://metacpan.org/pod/Email%3A%3AAddress).
+
     If this method returns false, all other methods will return false as well.
 
 - is\_random()
@@ -26,30 +37,23 @@ provides two classifications:
     Returns true if the localpart is likely to be randomly generated, false otherwise.
     Note that randomness is subjective and depends on the user's locale and other factors.
     This method uses a list of common trigrams to determine if the localpart is random. The trigrams
-    were generated from a corpus of 30,000 email messages, mostly in English.
+    were generated from a corpus of 30,000 email messages, mostly in English. The accuracy of this
+    method is about 95% for English email addresses.
 
     If you would like to generate your own list of trigrams, you can use the included
     `ngrams.pl` script in the `tools` directory of the source repository.
 
-# METHODS
-
-## new($address)
-
-Creates a new Email::Address::Classify object. The only argument is the email address
-
-## is\_valid()
-
-Returns true if the address is valid, false otherwise.
-
-## is\_random()
-
-Returns true if the address is random, false otherwise.
-
 # TODO
 
-- Add more classifications
+Ideas for future classification methods:
 
-    Ideas for other classifications include: disposable, role-based, etc.
+    is_freemail()
+    is_disposable()
+    is_role_based()
+    is_bounce()
+    is_verp()
+    is_srs()
+    is_batv()
 
 # AUTHOR
 

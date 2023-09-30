@@ -19,13 +19,24 @@ Email::Address::Classify - Classify email addresses
 =head1 DESCRIPTION
 
 This module provides a simple way to classify email addresses. At the moment, it only
-provides two classifications:
+provides two classifications is_valid() and is_random(). More classifications may be
+added in the future.
+
+=head1 METHODS
 
 =over 4
 
+=item new($address)
+
+Creates a new Email::Address::Classify object. The only argument is the email address.
+
 =item is_valid()
 
-Returns true if the address conforms to the RFC 5322 specification. Returns false otherwise.
+Performs a simple check to determine if the address is formatted properly.
+Note that this method does not check if the domain exists or if the mailbox is valid.
+Nor is it a complete RFC 2822 validator. For that, you should use a module such as
+L<Email::Address>.
+
 If this method returns false, all other methods will return false as well.
 
 =item is_random()
@@ -33,36 +44,25 @@ If this method returns false, all other methods will return false as well.
 Returns true if the localpart is likely to be randomly generated, false otherwise.
 Note that randomness is subjective and depends on the user's locale and other factors.
 This method uses a list of common trigrams to determine if the localpart is random. The trigrams
-were generated from a corpus of 30,000 email messages, mostly in English.
+were generated from a corpus of 30,000 email messages, mostly in English. The accuracy of this
+method is about 95% for English email addresses.
 
 If you would like to generate your own list of trigrams, you can use the included
 C<ngrams.pl> script in the C<tools> directory of the source repository.
 
 =back
 
-=head1 METHODS
-
-=head2 new($address)
-
-Creates a new Email::Address::Classify object. The only argument is the email address
-
-=head2 is_valid()
-
-Returns true if the address is valid, false otherwise.
-
-=head2 is_random()
-
-Returns true if the address is random, false otherwise.
-
 =head1 TODO
 
-=over 4
+Ideas for future classification methods:
 
-=item * Add more classifications
-
-Ideas for other classifications include: disposable, role-based, etc.
-
-=back
+    is_freemail()
+    is_disposable()
+    is_role_based()
+    is_bounce()
+    is_verp()
+    is_srs()
+    is_batv()
 
 =head1 AUTHOR
 
@@ -88,19 +88,17 @@ along with this program.  If not, see https://www.gnu.org/licenses/.
 =cut
 
 my %ngrams;
-our $threshold = 0.8; # empirically determined
 our $min_length = 4;
 our $VERSION = '0.01';
 
 sub _init {
 
-    # read ngrams from Classify/freq.txt
-    my $filename = dirname($INC{'Email/Address/Classify.pm'}).'/Classify/freq.txt';
+    # read ngrams from Classify/ngrams.txt
+    my $filename = dirname($INC{'Email/Address/Classify.pm'}).'/Classify/ngrams.txt';
     open(my $fh, '<', $filename) or die "Can't open $filename: $!";
     while (my $line = <$fh>) {
         chomp $line;
-        my ($ngram, $freq) = split(/\s+/, $line);
-        $ngrams{$ngram} = $freq;
+        $ngrams{$line} = 1;
     }
     close($fh);
 
@@ -148,7 +146,7 @@ sub is_random {
 
     my ($common,$uncommon) = (0,0);
     foreach (_find_ngrams($self->{localpart})) {
-        if (exists $ngrams{$_} && $ngrams{$_} >= $threshold) {
+        if (exists $ngrams{$_} ) {
             $common++;
         } else {
             $uncommon++;

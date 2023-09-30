@@ -27,6 +27,11 @@ Commands:
 
     Calculates the best threshold by calling `test` repeatedly until accuracy is maximized.
 
+- dump &lt;threshold>
+
+    Outputs all ngrams with a frequency greater than or equal to the given threshold.
+    You can use this to overwrite the default ngrams.txt file with a custom list of ngrams.
+
 - is\_random &lt;string> \[&lt;threshold>\]
 
     Returns 1 if the given string is random, 0 otherwise. If threshold is given,
