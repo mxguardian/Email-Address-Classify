@@ -68,7 +68,7 @@ Ideas for future classification methods:
 
 Kent Oyer <kent@mxguardian.net>
 
-# LICENSE AND COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
 Copyright (C) 2023 MXGuardian LLC
 
