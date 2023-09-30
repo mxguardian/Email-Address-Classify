@@ -12,10 +12,10 @@ my @addresses = qw(
     rlesnik@example.com
     diewtntp@example.com
     watch@example.com
-    uojinomi@example.com
+    ebyxxhnbj@example.com
     recommendations@example.com
     twqyhmsy@example.com
-    kohls@example.com
+    gwhite@example.com
     ylukvfog@example.com
     cherri@example.com
     yiyagqqh@example.com
@@ -45,7 +45,7 @@ my @addresses = qw(
     tztfcfqo@example.com
     klund@example.com
     uekkmrks@example.com
-    benji@example.com
+    a.berros@example.com
     jpbdyrfy@example.com
 );
 
