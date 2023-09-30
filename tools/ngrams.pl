@@ -12,6 +12,12 @@ use constant FREQ_FILE => '/tmp/freq.txt';
 use constant NGRAM_SIZE => 3;
 use constant MIN_WORD_LENGTH => 4;
 
+=head1 NAME
+
+ngrams.pl - Tool to calculate ngram frequency from a list of email addresses and test for accuracy
+
+=cut
+
 =head1 SYNOPSIS
 
 Usage: ngrams.pl <command> [<args>]

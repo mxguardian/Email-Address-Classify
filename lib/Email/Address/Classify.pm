@@ -35,10 +35,10 @@ Note that randomness is subjective and depends on the user's locale and other fa
 This method uses a list of common trigrams to determine if the localpart is random. The trigrams
 were generated from a corpus of 30,000 email messages, mostly in English.
 
-
+If you would like to generate your own list of trigrams, you can use the included
+C<ngrams.pl> script in the C<tools> directory of the source repository.
 
 =back
-
 
 =head1 METHODS
 
@@ -85,7 +85,7 @@ file included with this distribution for more information.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see https://www.gnu.org/licenses/.
 
-
+=cut
 
 my %ngrams;
 our $threshold = 0.8; # empirically determined

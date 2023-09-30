@@ -1,3 +1,7 @@
+# NAME
+
+ngrams.pl - Tool to calculate ngram frequency from a list of email addresses and test for accuracy
+
 # SYNOPSIS
 
 Usage: ngrams.pl &lt;command> \[&lt;args>\]
@@ -6,8 +10,9 @@ Commands:
 
 - prepare\_dict
 
-    Reads a list of email addresses from /tmp/dict.txt and splits it
-    into /tmp/dict\_learn.txt and /tmp/dict\_test.txt.
+    Reads a list of valid email addresses from /tmp/dict.txt and splits it
+    into /tmp/dict\_learn.txt and /tmp/dict\_test.txt. The input file can contain full email addresses
+    or just the local part. The domain part is ignored.
 
 - calc\_freq
 
@@ -20,7 +25,7 @@ Commands:
 
 - calc\_threshold
 
-    Calculates the best threshold by calling `test` repeatedly until the best value is found
+    Calculates the best threshold by calling `test` repeatedly until accuracy is maximized.
 
 - is\_random &lt;string> \[&lt;threshold>\]
 
